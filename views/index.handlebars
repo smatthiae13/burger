@@ -1,11 +1,48 @@
 <div class="container">
+
     <div class="row">
-
-        <h1>Burger Putter Together-er</h1>
-
-
-        <p>Enter the burger you want to eat.</p>
-        <input type="text" class="form-control" placeholder="Text input"> 
-        <p>Click the Submit button</p>
+        <div class="col-md-12">
+            <img src="/assets/img/burger.png" alt="happy burger" class="img-responsive center-block">
+        </div>
     </div>
-</div>
+
+
+    <div class="clo-md-12">
+        <h1 class="text center text danger">Burger-Licious</h1>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-5">
+            <h2>Burgers available to eat</h2>
+            <ul class="burger_list">
+                {{#each burger}} 
+                {{#unless this.devoured}}
+                <li>
+                    <h5>{{this.id}}. {{this.burger_name}}</h5>
+                    <form action='burgers/updateOne/{{this.id}}?_method=PUT' method='POST'>
+                        <input type='hidden' name='devoured' value='true'>
+                        <button type='submit' class="btn btn-default">Devour it</button>
+                    </form>
+                </li>
+                {{/unless}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-2"></div>
+
+    <div class="col-md-5">
+        <h3 class="text-muted">Devoured Burgers</h3>
+        <ul>
+            {{#each burger}} {{#if this.devoured}}
+            <li>
+                <h5 class="text-muted">{{this.id}}. {{this.burger_name}}</h5>
+            </li>
+            {{/if}}
+            {{/each}}
+        </ul>
+    </div>
+
+    

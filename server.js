@@ -2,14 +2,15 @@ var express = require("express");
 
 var PORT = process.env.PORT || 8080;
 
-var app = express;
+var app = express();
+var bodyParser = require("body-parser");
 
 // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static("public"));
 
 // Parse request body as JSON
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 
 // Set Handlebars.
@@ -28,7 +29,7 @@ app.set("view engine", "handlebars");
 //         console.log(results);
 //     })
 // })
-var routes = require("./controller/burger_controllers.js");
+var routes = require("./controllers/burger_controllers.js");
 
 // Import routes and give the server access to them.
 app.use(routes);

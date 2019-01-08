@@ -1,4 +1,4 @@
-var require = ("/connection.js");
+var connection =require ("./connection.js");
 
 // var orm = {
 //     //use selectAll(), insertOne(), updateOne()
@@ -7,11 +7,12 @@ var require = ("/connection.js");
 // }
 
 var orm = {
-    selectAll: function(tableInput) {
+    selectAll: function(tableInput, callback) {
       var queryString = "SELECT * FROM ??";
       connection.query(queryString, [tableInput], function(err, result) {
         if (err) throw err;
         console.log(result);
+        callback(result);
       });
     },
 
@@ -34,4 +35,4 @@ var orm = {
 
  
 
-module.export = orm;
+module.exports = orm;
