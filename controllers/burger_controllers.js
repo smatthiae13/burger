@@ -6,14 +6,24 @@ var router = express.Router();
 var burger = require("../models/burger.js");
 
 // Create all our routes and set up logic within those routes where required.
-router.get("/", function(req, res) {
-    res.redirect("/burgers")
-   
-});
+//router.get("/", function(req, res) {
+    //res.redirect("/burgers")
+   //res.send(data);
 
-router.get("/burgers", function(req,res){
-    console.log("hititng this route");
-    burger.selectAll(function(data) {
+//});
+
+// router.get("/test", function(req, res) {
+
+//    console.log("Hit test!!!!!!")
+//    res.send("chill out postman!")
+// });
+
+router.get("/", function (req, res) {
+    console.log("hitting this route");
+
+    burger.selectAll(function (data) {
+       // res.send(data)
+
         var hbsObject = {
             burger: data
         };
@@ -22,10 +32,29 @@ router.get("/burgers", function(req,res){
     });
 });
 
-//router.post
+
+router.post("api/burger", function (req, res) {
+    burger.insertOne([
+        "burger_name"
+    ], [
+            req.body.burger_name
+        ], function (data) {
+            res.redirect("/");
+            //still dont completely understand why it redirects to same "/"
+        });
+});
 
 
-//router.put
+router.put("/api/burger/:id", function (req, res) {
+    console.log("the request", req.params.id);
+    var condition = "id =" + req.params.id;
+    burger.updateOne(
+       condition,
+     function(data) {
+         console.log(data);
+        res.redirect("/");
+    });
+});
 
 
 module.exports = router;

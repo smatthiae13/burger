@@ -2,12 +2,12 @@
 
     <div class="row">
         <div class="col-md-12">
-            <img src="/assets/img/burger.png" alt="happy burger" class="img-responsive center-block">
+            <img src="../assets/img/burger.png" alt="happy burger" class="img-responsive center-block">
         </div>
     </div>
 
 
-    <div class="clo-md-12">
+    <div class="col-md-12">
         <h1 class="text center text danger">Burger-Licious</h1>
     </div>
 
@@ -16,17 +16,16 @@
         <div class="col-md-5">
             <h2>Burgers available to eat</h2>
             <ul class="burger_list">
-                {{#each burger}} 
-                {{#unless this.devoured}}
+                {{#each burger}} {{#unless this.devoured}}
                 <li>
-                    <h5>{{this.id}}. {{this.burger_name}}</h5>
-                    <form action='burgers/updateOne/{{this.id}}?_method=PUT' method='POST'>
-                        <input type='hidden' name='devoured' value='true'>
-                        <button type='submit' class="btn btn-default">Devour it</button>
+                    <h3>{{this.id}}. {{this.burger_name}}</h3>
+                    <form class="devour" >
+                        <input type='hidden' class='burger_id' value={{this.id}}>
+                        <button id="devour" type='submit' class="btn btn-default">Devour it</button>
                     </form>
                 </li>
-                {{/unless}}
-                {{/each}}
+                {{/unless}} 
+             {{/each}}
             </ul>
         </div>
     </div>
@@ -39,10 +38,29 @@
             {{#each burger}} {{#if this.devoured}}
             <li>
                 <h5 class="text-muted">{{this.id}}. {{this.burger_name}}</h5>
+                
             </li>
-            {{/if}}
-            {{/each}}
+            {{/if}} {{/each}}
         </ul>
     </div>
 
-    
+    {{!--
+    <script type="text/javascript">
+        $("#devour").on("click", function (err, res) {
+
+            //do i need another variable inhere?
+            if (err) throw err;
+
+            var id = $(this).data("");
+
+            $.ajax("/api/burgers" + id, function (req, res) {
+                type: DELETE
+            }).then(
+                function () {
+
+                }
+            )
+        })
+
+
+    </script> --}}

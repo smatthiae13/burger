@@ -5,6 +5,7 @@ var connection =require ("./connection.js");
 // selectWhere
 
 // }
+//var array
 
 var orm = {
     selectAll: function(tableInput, callback) {
@@ -13,26 +14,29 @@ var orm = {
         if (err) throw err;
         console.log(result);
         callback(result);
+        return (result);
       });
     },
 
     insertOne: function(table, col, val ) {
-        var queryString = "SELECT * ";
+        var queryString = "INSERT INTO ?? VALUES ? ";
         connection.query(queryString, [table, col, val], function(err, results) {
             if (err) throw err;
             console.log(results);
         });
     },
 
-    updateOne: function() {
-        var queryString = "";
-        connection.query(queryString, [], function(err, results) {
+    updateOne: function(updateTable, updateCol, val ) {
+        var queryString = "UPDATE ?? SET ?? WHERE ??";  //where ??
+        connection.query(queryString, [updateTable, updateCol, val], function(err, results) {
             if (err) throw err;
             console.log(results);
         })
     }
 }  
 
- 
+ //selectAll(x,y);
+ //insertOne();
+
 
 module.exports = orm;
